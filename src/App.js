@@ -3,7 +3,7 @@ import formatNumber from "format-number";
 import photographer from "./images/girl.png";
 import "./App.css";
 import store from './store';
-import withdrawMoney from './actions';
+import { withdrawMoney, depositMoney } from './actions';
 
 class App extends Component {
   render() {
@@ -20,7 +20,7 @@ class App extends Component {
 
         <section className="App__buttons">
           <button data-amount="10000" onClick={dispatchWithdrawAction}>WITHDRAW $10,000</button>
-          <button data-amount="5000" onClick={dispatchWithdrawAction} >WITHDRAW $5,000</button>
+          <button data-amount="5000" onClick={dispatchDepositAction} >DEPOSIT $5,000</button>
         </section>
 
         <p className="App__giveaway">Give away all your cash to charity</p>
@@ -35,5 +35,12 @@ function dispatchWithdrawAction(e) {
   const amount = e.target.dataset.amount;
     // Invoke the action creator
   store.dispatch(withdrawMoney(amount));
+}
+
+function dispatchDepositAction(e) {
+  // Get the button amount value
+  const amount = e.target.dataset.amount;
+    // Invoke the action creator
+  store.dispatch(depositMoney(amount));
 }
 export default App;

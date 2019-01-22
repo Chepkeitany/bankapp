@@ -2,7 +2,7 @@ import { createStore } from "redux";
 import reducer from '../reducers';
 
 const initialState = {
-    username: "Janny",
+    username: "Anne",
     totalAmount: 2500701
 }
 

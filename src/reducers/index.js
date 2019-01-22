@@ -5,7 +5,12 @@ export default (state, action) => {
             return {
                 ...state,
                 totalAmount: state.totalAmount - action.amount
-            }     
+            };
+        case 'DEPOSIT_MONEY':
+            return {
+                ...state,
+                totalAmount: parseInt(state.totalAmount, 0) + parseInt(action.amount, 0)
+            };
         default:
             return state
     
