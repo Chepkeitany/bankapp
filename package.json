@@ -6,6 +6,7 @@
     "format-number": "^3.0.0",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
+    "react-redux": "^6.0.0",
     "react-scripts": "1.1.4",
     "redux": "^4.0.0"
   },
