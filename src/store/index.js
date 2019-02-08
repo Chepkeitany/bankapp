@@ -1,10 +1,12 @@
-import { createStore } from "redux";
+import { createStore, applyMiddleware} from "redux";
+import createSagaMiddleware from "redux-saga";
+import logger from "redux-logger";
 import reducer from '../reducers';
+import { watchFetchUserProfile } from "../sagas";
 
-const initialState = {
-    username: "Anne",
-    totalAmount: 2500701
-}
+const initialState = {}
+const sagaMiddleware = createSagaMiddleware();
 
-const store = createStore(reducer, initialState);
+const store = createStore(reducer, initialState, applyMiddleware(sagaMiddleware, logger));
+sagaMiddleware.run(watchFetchUserProfile);
 export default store;

@@ -1,11 +1,22 @@
 import React, { Component } from "react";
 import formatNumber from "format-number";
 import { connect } from "react-redux";
-import photographer from "../images/girl.png";
 import "./App.css";
-import { withdrawMoney, depositMoney } from '../actions';
+import { withdrawMoney, depositMoney, fetchUserProfile } from '../actions';
 
-class App extends Component {  
+class App extends Component {
+  static defaultProps = {
+    username: "",
+    totalAmount: 0,
+    userPic: "",
+    withdrawMoney: () => {},
+    fetchUserProfile: () => {},
+    isLoading: true
+  };
+  
+  componentDidMount() {
+    this.props.fetchUserProfile();
+  }
   render() {
     const dispatchWithdrawAction = e => {
       // Get the button amount value
@@ -20,8 +31,8 @@ class App extends Component {
       this.props.depositMoney(amount);
     }
     return (
-      <div className="App">
-        <img className="App__userpic" src={photographer} alt="user" />
+      <div className={`App ${this.props.isLoading ? "App--loading" : ""}`}>
+        <img className="App__userpic" src={this.props.userPic} alt="user" />
         <p className="App__username">Hello, {this.props.username}! </p>
         <div className="App__amount">
           {formatNumber({ prefix: "$" })(this.props.totalAmount)}
@@ -29,8 +40,18 @@ class App extends Component {
         </div>
 
         <section className="App__buttons">
-          <button data-amount="10000" onClick={dispatchWithdrawAction}>WITHDRAW $10,000</button>
-          <button data-amount="5000" onClick={dispatchDepositAction} >DEPOSIT $5,000</button>
+          <button
+            data-amount="10000"
+            onClick={dispatchWithdrawAction}
+            disabled={this.props.isLoading}>
+            WITHDRAW $10,000
+            </button>
+          <button
+            data-amount="5000"
+            onClick={dispatchDepositAction} 
+            disabled={this.props.isLoading}>
+            DEPOSIT $5,000
+            </button>
         </section>
 
         <p className="App__giveaway">Give away all your cash to charity</p>
@@ -42,11 +63,14 @@ class App extends Component {
 
 const mapStateToProps = state => ({
     totalAmount: state.totalAmount,
-    username: state.username
+    username: state.username,
+    userPic: state.userPic,
+    isLoading: state.isLoading
 });
 
 const mapDispatchToProps = {
   withdrawMoney,
-  depositMoney
+  depositMoney,
+  fetchUserProfile
 }
 export default connect(mapStateToProps, mapDispatchToProps)(App);
