@@ -2,13 +2,13 @@ import { WITHDRAW_MONEY, DEPOSIT_MONEY, FETCH_USER_PROFILE, SET_USER_PROFILE } f
 
 // Action Creators
 // Using ES6 arrow functions
-export const withdrawMoney = (amount) => ({
+export const withdrawMoney = payload => ({
         type: WITHDRAW_MONEY,
-        amount: amount
+        payload
     });
-export const depositMoney = (amount) => ({
+export const depositMoney = payload => ({
         type: DEPOSIT_MONEY,
-        amount: amount
+        payload
     });
 
 export const fetchUserProfile = () => ({

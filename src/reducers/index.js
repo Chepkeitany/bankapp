@@ -6,12 +6,12 @@ export default (state, action) => {
             console.log(action.amount);    
             return {
                 ...state,
-                totalAmount: state.totalAmount - action.amount
+                totalAmount: state.totalAmount - action.payload
             };
         case DEPOSIT_MONEY:
             return {
                 ...state,
-                totalAmount: parseInt(state.totalAmount, 0) + parseInt(action.amount, 0)
+                totalAmount: parseInt(state.totalAmount, 0) + parseInt(action.payload, 0)
             };
         case SET_USER_PROFILE:
             return {
